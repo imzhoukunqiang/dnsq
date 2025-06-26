@@ -6,7 +6,7 @@
 # separate terms of service, privacy policy, and support
 # documentation.
 
-name: Java CI with Maven
+name: Build native image
 
 on:
   push:
@@ -19,7 +19,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
+      - name: Print environment variables
+        run: |
+          echo "GITHUB_REF: $GITHUB_REF"
+          echo "GITHUB_RUN_NUMBER: $GITHUB_RUN_NUMBER"
+          echo "GITHUB_RUN_ID: $GITHUB_RUN_ID"
+          echo "PWD:" $(pwd)
       # - name: GitHub Action for GraalVM
       #   uses: graalvm/setup-graalvm@v1
       #   with:
