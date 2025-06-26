@@ -1,4 +1,5 @@
 # dnsq
+[![CI build](https://github.com/imzhoukunqiang/dnsq/actions/workflows/ci.yml/badge.svg)](https://github.com/imzhoukunqiang/dnsq/actions/workflows/ci.yml)
 
 This project uses Quarkus, the Supersonic Subatomic Java Framework.
 
