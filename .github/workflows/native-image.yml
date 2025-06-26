@@ -48,6 +48,8 @@ jobs:
           file: ./src/main/docker/Dockerfile.multistage
           context: .
           push: true
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
           tags: |
             zhoukq/dnsq:${{ env.VERSION }}-amd64
 
@@ -85,6 +87,8 @@ jobs:
           file: ./src/main/docker/Dockerfile.multistage
           context: .
           push: true
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
           tags: |
             zhoukq/dnsq:${{ env.VERSION }}-arm64
 
@@ -96,7 +100,7 @@ jobs:
         uses: docker/login-action@v3
         with:
           username: zhoukq
-          password: ${{ secrets.DOCKER_PASSWORD }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Create and Push Manifest
         run: |
