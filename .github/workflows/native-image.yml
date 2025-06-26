@@ -47,8 +47,9 @@ jobs:
         with:
           file: ./src/main/docker/Dockerfile.multistage
           context: .
+          platforms: linux/amd64  # 明确指定单一平台
           push: true
-          outputs: type=image,name=zhoukq/dnsq:${{ env.VERSION }}-amd64,push=true
+          tags: zhoukq/dnsq:${{ env.VERSION }}-amd64
           build-args: |
             TARGETARCH=amd64
           cache-from: type=gha,scope=amd64
@@ -87,8 +88,9 @@ jobs:
         with:
           file: ./src/main/docker/Dockerfile.multistage
           context: .
+          platforms: linux/arm64  # 明确指定单一平台
           push: true
-          outputs: type=image,name=zhoukq/dnsq:${{ env.VERSION }}-arm64,push=true
+          tags: zhoukq/dnsq:${{ env.VERSION }}-arm64
           build-args: |
             TARGETARCH=arm64
           cache-from: type=gha,scope=arm64
@@ -119,6 +121,10 @@ jobs:
 
       - name: Create and Push Manifest
         run: |
+          # 等待镜像完全同步
+          sleep 5
+          
+          # 创建 manifest list
           docker manifest create zhoukq/dnsq:${{ env.VERSION }} \
             --amend zhoukq/dnsq:${{ env.VERSION }}-amd64 \
             --amend zhoukq/dnsq:${{ env.VERSION }}-arm64
