@@ -15,7 +15,7 @@ on:
 
 jobs:
   build-x86:
-    name: Build native image
+    name: Build native image(x86)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -53,7 +53,7 @@ jobs:
             zhoukq/dnsq:${{ env.VERSION }}
 
   build-arm64:
-    name: Build native image
+    name: Build native image(arm64)
     runs-on: ubuntu-24.04-arm
     steps:
       - uses: actions/checkout@v4
