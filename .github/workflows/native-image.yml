@@ -14,8 +14,8 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-x86:
-    name: Build native image(x86)
+  build-amd64:
+    name: Build native image(amd64)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -49,8 +49,7 @@ jobs:
           context: .
           push: true
           tags: |
-            zhoukq/dnsq:${{ env.VERSION }}-${{ github.run_number }}
-            zhoukq/dnsq:${{ env.VERSION }}
+            zhoukq/dnsq:${{ env.VERSION }}-amd64
 
   build-arm64:
     name: Build native image(arm64)
@@ -87,5 +86,23 @@ jobs:
           context: .
           push: true
           tags: |
-            zhoukq/dnsq:${{ env.VERSION }}-${{ github.run_number }}
-            zhoukq/dnsq:${{ env.VERSION }}
+            zhoukq/dnsq:${{ env.VERSION }}-arm64
+
+  create-manifest:
+    needs: [build-amd64, build-arm64]  # 等待前两个完成
+    runs-on: ubuntu-latest
+    steps:
+      - name: Login to DockerHub
+        uses: docker/login-action@v3
+        with:
+          username: zhoukq
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Create and Push Manifest
+        run: |
+          docker manifest create zhoukq/dnsq:${{ env.VERSION }} \
+            --amend zhoukq/dnsq:${{ env.VERSION }}-amd64 \
+            --amend zhoukq/dnsq:${{ env.VERSION }}-arm64
+          
+          docker manifest push zhoukq/dnsq:${{ env.VERSION }}
+
