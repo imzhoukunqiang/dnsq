@@ -47,11 +47,12 @@ jobs:
         with:
           file: ./src/main/docker/Dockerfile.multistage
           context: .
-          platforms: linux/amd64
           push: true
           outputs: type=image,name=zhoukq/dnsq:${{ env.VERSION }}-amd64,push=true
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+          build-args: |
+            TARGETARCH=amd64
+          cache-from: type=gha,scope=amd64
+          cache-to: type=gha,mode=max,scope=amd64
 
   build-arm64:
     name: Build native image(arm64)
@@ -86,11 +87,12 @@ jobs:
         with:
           file: ./src/main/docker/Dockerfile.multistage
           context: .
-          platforms: linux/arm64
           push: true
           outputs: type=image,name=zhoukq/dnsq:${{ env.VERSION }}-arm64,push=true
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+          build-args: |
+            TARGETARCH=arm64
+          cache-from: type=gha,scope=arm64
+          cache-to: type=gha,mode=max,scope=arm64
 
   create-manifest:
     needs: [build-amd64, build-arm64]  # 等待前两个完成
