@@ -12,6 +12,6 @@ public class GreetingResource {
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public String hello(@QueryParam("name") String name) {
-        return "Hello from DNSQ.";
+        return "Hello from dnsq.";
     }
 }

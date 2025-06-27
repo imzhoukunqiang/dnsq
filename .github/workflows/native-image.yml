@@ -127,6 +127,4 @@ jobs:
           docker buildx imagetools create -t zhoukq/dnsq:${{ env.VERSION }} \
             zhoukq/dnsq:${{ env.VERSION }}-amd64 \
             zhoukq/dnsq:${{ env.VERSION }}-arm64
-          
-          docker manifest push zhoukq/dnsq:${{ env.VERSION }}
 
