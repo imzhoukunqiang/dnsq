@@ -10,7 +10,9 @@ name: Build native image
 
 on:
   push:
-    branches: [ "main" ]
+    branches:
+      - main
+      - develop
   workflow_dispatch:
 
 jobs:
@@ -119,12 +121,22 @@ jobs:
           username: zhoukq
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
+
+      - name: Set IMAGE_SUFFIX based on branch
+        run: |
+          BRANCH_NAME=${GITHUB_REF##*/}
+          if [ "$BRANCH_NAME" = "main" ]; then
+            echo "IMAGE_SUFFIX=" >> $GITHUB_ENV
+          else
+            echo "IMAGE_SUFFIX=-$BRANCH_NAME" >> $GITHUB_ENV
+          fi
+
       - name: Create and Push Manifest
         run: |
           # 等待镜像完全同步
           sleep 5
           # 创建 multi-arch manifest
-          docker buildx imagetools create -t zhoukq/dnsq:${{ env.VERSION }} \
+          docker buildx imagetools create -t zhoukq/dnsq:${{ env.VERSION }}${IMAGE_SUFFIX} \
             zhoukq/dnsq:${{ env.VERSION }}-amd64 \
             zhoukq/dnsq:${{ env.VERSION }}-arm64
 
