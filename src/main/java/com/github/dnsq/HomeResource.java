@@ -4,7 +4,6 @@ import com.github.dnsq.jooq.tables.daos.ClickDao;
 import com.github.dnsq.jooq.tables.pojos.Click;
 import com.github.dnsq.service.ClickSerivce;
 import jakarta.inject.Inject;
-import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;

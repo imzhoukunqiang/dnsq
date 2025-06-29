@@ -1,9 +1,7 @@
 package com.github.dnsq.service;
 
-import com.github.dnsq.jooq.tables.*;
 import com.github.dnsq.jooq.tables.daos.ClickDao;
 import com.github.dnsq.jooq.tables.pojos.Click;
-import com.github.dnsq.jooq.tables.records.ClickRecord;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import org.jooq.DSLContext;

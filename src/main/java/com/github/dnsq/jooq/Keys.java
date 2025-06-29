@@ -6,7 +6,6 @@ package com.github.dnsq.jooq;
 
 import com.github.dnsq.jooq.tables.Click;
 import com.github.dnsq.jooq.tables.records.ClickRecord;
-
 import org.jooq.TableField;
 import org.jooq.UniqueKey;
 import org.jooq.impl.DSL;
@@ -17,12 +16,12 @@ import org.jooq.impl.Internal;
  * A class modelling foreign key relationships and constraints of tables in the
  * default schema.
  */
-@SuppressWarnings({ "all", "unchecked", "rawtypes", "this-escape" })
+@SuppressWarnings({"all", "unchecked", "rawtypes", "this-escape"})
 public class Keys {
 
     // -------------------------------------------------------------------------
     // UNIQUE and PRIMARY KEY definitions
     // -------------------------------------------------------------------------
 
-    public static final UniqueKey<ClickRecord> CLICK__PK_CLICK = Internal.createUniqueKey(Click.CLICK, DSL.name("pk_click"), new TableField[] { Click.CLICK.ID }, true);
+    public static final UniqueKey<ClickRecord> CLICK__PK_CLICK = Internal.createUniqueKey(Click.CLICK, DSL.name("pk_click"), new TableField[]{Click.CLICK.ID}, true);
 }
