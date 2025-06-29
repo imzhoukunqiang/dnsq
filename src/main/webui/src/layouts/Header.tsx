@@ -1,5 +1,4 @@
 import { Link, NavLink } from 'react-router-dom'
-import dnsq from '../assets/dnsq.svg'
 
 interface MenuItem {
   label: string
